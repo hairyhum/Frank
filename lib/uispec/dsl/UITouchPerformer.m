@@ -31,6 +31,10 @@
 #pragma mark - Tapping
 - (void) tapOnViews: (NSArray*) views
 {
+    [self tapOnViewsForDuration: views duration: TAP_DELAY];
+}
+- (void) tapOnViewsForDuration: (NSArray*) views duration: (double) duration
+{
     for(UIView *targetView in views)
     {
         // create a touch in the center of the view
@@ -48,7 +52,7 @@
         // dispatch phase down event
         [[UIApplication sharedApplication] sendEvent: event];
         
-        [self wait: TAP_DELAY];
+        [self wait: duration];
         
         // dispatch phase up
         [touch setPhase:UITouchPhaseEnded];
@@ -62,12 +66,17 @@
 
 - (void) tapAtPoint: (CGPoint) point
 {
-    NSLog(@"Tapping at: %@", NSStringFromCGPoint(point));
+    [self tapAtPointForDuration: point duration: TAP_DELAY];
+}
+
+- (void) tapAtPointForDuration: (CGPoint) point duration: (double) duration
+{
+        NSLog(@"Tapping at: %@", NSStringFromCGPoint(point));
 
     UITouch *touch = [UITouch touchAtPoint: point];
-	
-	VisibleTouch *visibleTouch = [[VisibleTouch alloc] initWithCenter:point];
-	[visibleTouch addToKeyWindow];
+    
+    VisibleTouch *visibleTouch = [[VisibleTouch alloc] initWithCenter:point];
+    [visibleTouch addToKeyWindow];
 
     
     // init an empty event
@@ -79,15 +88,15 @@
     // dispatch phase down event
     [[UIApplication sharedApplication] sendEvent: event];
     
-    [self wait: TAP_DELAY];
+    [self wait: duration];
     
     // dispatch phase up
     [touch setPhase:UITouchPhaseEnded];
     [event updateTimestamp];
     [[UIApplication sharedApplication] sendEvent: event];
-	
-	[visibleTouch removeFromSuperview];
-	[visibleTouch release];
+    
+    [visibleTouch removeFromSuperview];
+    [visibleTouch release];
 }
 
 #pragma mark - Swiping
@@ -346,7 +355,6 @@
 	}
 
 }
-
 - (void) touch:(NSArray*) targetViews
 {
     for (UIView *targetView in targetViews) {

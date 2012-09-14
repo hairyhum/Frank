@@ -10,6 +10,11 @@ module FrankHelper
     raise "could not find anything matching [#{uiquery}] to touch" if views_touched.empty?
     #TODO raise warning if views_touched.count > 1
   end
+
+  def touch_for_duration(uiquery, duration)
+    views_touched = frankly_map( uiquery, 'touchForDuration', duration )
+    raise "could not find anything matching [#{uiquery}] to touch" if views_touched.empty?
+  end
   
   def element_exists( query )
     matches = frankly_map( query, 'accessibilityLabel' )
