@@ -3,7 +3,7 @@
 	url = https://github.com/square/KIF.git
 [submodule "lib/UISpec"]
 	path = lib/UISpec
-	url = https://github.com/moredip/UISpec
+	url = https://github.com/hairyhum/UISpec
 [submodule "lib/Shelley"]
 	path = lib/Shelley
 	url = https://github.com/TestingWithFrank/Shelley.git
