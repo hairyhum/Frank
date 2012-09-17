@@ -71,7 +71,12 @@ module FrankHelper
     raise "could not find anything matching [#{selector}] to touch" if touch_successes.empty?
     raise "some views could not be touched (probably because they are not within the current viewport)" if touch_successes.include?(false)
   end
-  
+  def touch_for_duration(uiquery, duration)
+    views_touched = frankly_map( uiquery, 'tapForDuration', duration )
+    raise "could not find anything matching [#{uiquery}] to touch" if views_touched.empty?
+    raise "some views could not be touched (probably because they are not within the current viewport)" if touch_successes.include?(false)
+  end
+ 
   # Indicate whether there are any views in the current view heirarchy which match the specified selector.
   # @param [String] selector a view selector.
   # @return [Boolean]
